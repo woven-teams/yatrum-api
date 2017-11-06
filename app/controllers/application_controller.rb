@@ -1,15 +1,13 @@
 class ApplicationController < ActionController::Base
   include Authenticable
-  include Common  
+  include Common
   # before_action :set_current_user
   # protect_from_forgery with: :null_session
   before_action :authenticate_api
-  # This authentication should be at the controller level
-  before_action :set_raven_context
 
   # This authentication should be at the controller level
-  attr_reader :current_user 
-  
+  attr_reader :current_user
+
   def current_user
     @current_user
   end
@@ -21,20 +19,13 @@ class ApplicationController < ActionController::Base
     # our code is implemented to check headers. hence the whole if else hack below
     if params[:user].try(:[], :email) == ENV['ADMIN_EMAIL']
       # return admin user
-      # TODO: must check for auth token and other stuff to decode 
+      # TODO: must check for auth token and other stuff to decode
       # the token and find user
       @current_user = User.find_by(email: ENV['ADMIN_EMAIL'])
     else
       @current_user = AuthorizeApiRequest.call(request.headers).result
       Thread.current[:current_user] = @current_user
     end
-  end
-
-  # For storing parms and session only in 
-  # production and staging envionment
-  def set_raven_context
-    Raven.user_context(id: session[:current_user_id]) # or anything else in session
-    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 
   # Override Devise after sign in path for different user role
@@ -46,4 +37,3 @@ class ApplicationController < ActionController::Base
     end
   end
 end
-
