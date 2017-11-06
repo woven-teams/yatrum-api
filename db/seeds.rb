@@ -27,7 +27,7 @@ images = [
 ]
 
 10.times.each do |count|
-  trip = user.trips.create!(name: "Pune trip #{count}", description: "Was mostly in summer #{count}")
+  trip = user.trips.create!(name: "Pune trip #{count}", description: "Was mostly in summer #{count}", approved: true)
   trip.tag_list.add(*tags.sample(rand(10)))
   trip.save!
   # city = trip.cities.create!(name: "Pune #{count}", country: 'India')
@@ -36,17 +36,17 @@ images = [
 end
 
 user = User.create!(name: 'Chandra Shekhar', email: 'shekharait254@gmail.com', password: '1234567', password_confirmation: '1234567')
-trip = user.trips.create!(name: 'My first to India', description: 'Company Trip', status: 'completed')
+trip = user.trips.create!(name: 'My first to India', description: 'Company Trip', status: 'completed', approved: true)
 # city = trip.cities.create!(name: 'Pune', country: 'India')
 place = trip.places.create!(name: 'Aga khan Palace', description: 'old fort', review: 'very nice place')
 place.pictures.create!(url: "http://lorempixel.com/400/200", description: "Had so much fun here")
 
-trip = user.trips.create!(name: 'My first to Dubai', description: 'Dubai Trip', status: 'completed')
+trip = user.trips.create!(name: 'My first to Dubai', description: 'Dubai Trip', status: 'completed', approved: true)
 # city = trip.cities.create!(name: 'Pune', country: 'India')
 place = trip.places.create!(
   name: "Aga Khan Palace",
   description: %Q(
-    The Aga Khan Palace was built by Sultan Muhammed Shah Aga Khan III in Pune, India. Built in 1892, 
+    The Aga Khan Palace was built by Sultan Muhammed Shah Aga Khan III in Pune, India. Built in 1892,
     it is one of the biggest landmarks in Indian history. The palace was an act of charity by the Sultan who wanted
     to help the poor in the neighbouring areas of Pune, who were drastically hit by famine"),
   review: "Very nice palace"
@@ -68,8 +68,8 @@ place.pictures.create!(
 
 place = trip.places.create!(
   name: "Shaniwar Wada",
-  description: "Shaniwarwada (Śanivāravāḍā) is an 18th-century fortification in the city of Pune in Maharashtra, India. 
-                Built in 1732,[1] it was the seat of the Peshwa rulers of the Maratha Empire until 1818, when the Peshwas 
+  description: "Shaniwarwada (Śanivāravāḍā) is an 18th-century fortification in the city of Pune in Maharashtra, India.
+                Built in 1732,[1] it was the seat of the Peshwa rulers of the Maratha Empire until 1818, when the Peshwas
                 lost control to the East India Company after the Third Anglo-Maratha War. Following the rise of the Maratha Empire,
                 the palace became the center of Indian politics in the 18th century",
   review: "Good place"
@@ -120,7 +120,7 @@ place = trip.places.create!(
   description: "The Burj Khalifa (Arabic: برج خليفة‎‎, Arabic for 'Khalifa Tower'; pronounced English /ˈbɜːrdʒ kəˈliːfə/),
                 known as the Burj Dubai before its inauguration, is a megatall skyscraper in Dubai, United Arab Emirates.
                 It is the tallest structure in the world, standing at 829.8 m ",
-  review: "Nice view from top of the building", 
+  review: "Nice view from top of the building",
 )
 place.pictures.create!(
   url: "http://4.bp.blogspot.com/-9E_KTNVHeWU/VNGeKvoBZMI/AAAAAAAAMSc/6vjnkEaqxQw/s1600/Burj%2BKhalifa%2BPhoto%2Bat%2BNight%2B%2B03.jpg",
@@ -132,10 +132,10 @@ place.pictures.create!(
 )
 
 place = trip.places.create!(
-  name: "Palm Islands", 
+  name: "Palm Islands",
   description: "Palm Islands are three artificial islands, Palm Jumeirah, Deira Island and Palm Jebel Ali, on the coast of Dubai,
-                United Arab Emirates. As of November 2014, only Palm Jumeirah has been completed. This island takes the form of a palm tree, 
-                topped by a crescent. After completion, Palm Jebel Ali will take a similar shape; each island will be host to a large number of 
+                United Arab Emirates. As of November 2014, only Palm Jumeirah has been completed. This island takes the form of a palm tree,
+                topped by a crescent. After completion, Palm Jebel Ali will take a similar shape; each island will be host to a large number of
                 residential, leisure and entertainment centers and will add a total of 520 kilometers of non-public beaches to the city of Dubai.",
   review: "Very nice place to visit"
 )
@@ -149,7 +149,7 @@ place = trip.places.create!(
   description: "The Dubai Mall (Arabic: دبي مول‎‎) is a shopping mall in Dubai and the largest mall in the world by total area.
                 Along with West Edmonton Mall in Canada, it is the nineteenth largest shopping mall in the world by gross leasable area.
                 Located in Dubai, United Arab Emirates, it is part of the 20-billion-dollar Downtown complex, and includes 1,200 shops.
-                In 2011 it was the most visited building on the planet, attracting over 54 million visitors. Access to the mall is provided 
+                In 2011 it was the most visited building on the planet, attracting over 54 million visitors. Access to the mall is provided
                 via Doha Street, rebuilt as a double-decker road in April 2009",
   review: "Expensive shopping and leisue complex"
 )
