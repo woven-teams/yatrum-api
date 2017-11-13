@@ -35,5 +35,3 @@ Make sure sqlite3 is installed and is running before you run the next command.
 `$ rake db:reset`
 
 `$ rails server`
-
-If you face any problems setting up the application let us know and we'd be more than happy to help you!!!
