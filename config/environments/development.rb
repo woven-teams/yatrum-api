@@ -43,6 +43,8 @@ Rails.application.configure do
   # TODO: Check Sendgrid integration
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
+  # Allow development front-end server to connect to the backend
+  config.action_cable.allowed_request_origins = [/https?:\/\/localhost:\d+/]
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
