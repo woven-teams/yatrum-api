@@ -22,7 +22,7 @@ This is the backend API code for the main [yatrum app](http://yatrum.com)
 
 ## Getting started ##
 
-Clone the application 
+Clone the application
 
 `$ git clone git@github.com:woven-teams/yatrum-api.git`
 
@@ -36,4 +36,4 @@ Make sure sqlite3 is installed and is running before you run the next command.
 
 `$ rails server`
 
-If you face any problems setting up the application let us know and we'd be more than happy to help you!!! 
+If you face any problems setting up the application let us know and we'd be more than happy to help you!!!
