@@ -24,13 +24,13 @@ This is the backend API code for the main [yatrum app](http://yatrum.com)
 
 Clone the application 
 
-`$ git clone git@github.com:aviabird/yatrum-api.git`
+`$ git clone git@github.com:woven-teams/yatrum-api.git`
 
 `$ cd yatrum-api`
 
 `$ bundle install`
 
-Make sure postgres is installed and is running before you run the next command.
+Make sure sqlite3 is installed and is running before you run the next command.
 
 `$ rake db:reset`
 
