@@ -42,9 +42,11 @@ gem 'simple_command'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'pry'
   gem 'byebug', platform: :mri
+  gem 'database_cleaner'
+  gem 'factory_bot'
+  gem 'pry'
+  gem 'rspec-rails'
 end
 
 group :development do
