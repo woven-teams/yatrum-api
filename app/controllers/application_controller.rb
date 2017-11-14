@@ -17,7 +17,8 @@ class ApplicationController < ActionController::Base
     # TODO: Need to correctly implement this
     # issue: Devise not sending user auth details in headers instead it sends in params
     # our code is implemented to check headers. hence the whole if else hack below
-    if params[:user].try(:[], :email) == ENV['ADMIN_EMAIL']
+    email = params[:user].try(:[], :email)
+    if email.present? && email == ENV['ADMIN_EMAIL']
       # return admin user
       # TODO: must check for auth token and other stuff to decode
       # the token and find user
