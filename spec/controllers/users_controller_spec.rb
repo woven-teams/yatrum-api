@@ -42,6 +42,7 @@ RSpec.describe UsersController, type: :controller do
       user = User.create! valid_attributes
       post :get_user_by_id, params: { id: user.to_param }
       expect(response).to be_success
+      expect(response.body).to eq(UserSerializer.new(User.last).to_json)
     end
   end
 end
