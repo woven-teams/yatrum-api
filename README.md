@@ -30,7 +30,7 @@ Clone the application
 
 `$ bundle install`
 
-Make sure sqlite3 is installed and is running before you run the next command.
+Make sure Postgres is installed and is running before you run the next command.
 
 `$ rake db:reset`
 
