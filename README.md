@@ -20,18 +20,18 @@
 
 This is the backend API code for the main [yatrum app](http://yatrum.com)
 
+Everything is in the `server/` directory, so change to that directory to run these commands.
+
 ## Getting started ##
 
-Clone the application
-
-`$ git clone git@github.com:woven-teams/yatrum-api.git`
-
-`$ cd yatrum-api`
+Install the gem dependencies of the project.
 
 `$ bundle install`
 
 Make sure Postgres is installed and is running before you run the next command.
 
 `$ rake db:reset`
+
+This will run the backend server:
 
 `$ rails server`
