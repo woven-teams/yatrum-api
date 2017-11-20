@@ -1,6 +1,6 @@
 class TripsController < ApplicationController
   include CommonRender
-  
+
   before_action :authenticate_request,
     only: [:create, :update, :destroy, :like, :delete_comment, :add_comment]
   before_action :set_trip, only: [:show, :update, :destroy, :like, :increase_view_count]
@@ -53,7 +53,7 @@ class TripsController < ApplicationController
   def destroy
     @trip.destroy
   end
-  
+
   # GET /users/:user_id/trips
   def get_user_trips
     user = User.find(params[:user_id])
@@ -74,16 +74,16 @@ class TripsController < ApplicationController
     @trips =
       Trip
       .includes(:user, places: :pictures)
-      .where.not(user_id: current_user.try(:id), 
+      .where.not(user_id: current_user.try(:id),
                  approved: false
         )
       .tagged_with(params[:keywords].try(:split), any: true)
       .order(created_at: :desc)
       .offset(page)
       .limit(10)
-    
+
     render json: @trips
-  end  
+  end
 
   # POST /trips/like
   def like
@@ -106,53 +106,6 @@ class TripsController < ApplicationController
 
     total_pages = find_total_pages
     render json: {trips: custom_serializer(@trips, TripSerializer), total_pages: total_pages}
-  end
-
-  # GET /trips/:id/comments
-  def comments
-    comments =
-      HTTParty
-      .get("#{ENV["YT_COMMENT_API_URL"]}/trips/#{params[:id]}/comments")
-      .as_json["data"]
-
-    users = User.where(id: comments.map{|comm| comm["user_id"]})
-    users = custom_serializer(users, UserSerializer).as_json
-
-    comments = comments.map! do |comment|
-      comment.merge(user: users.find{|user| user[:id] == comment["user_id"].to_i})
-    end
-
-
-    render json: comments
-  end
-
-  # POST /trips/comments/:id
-  def delete_comment
-    if params[:user_id] == current_user.id.to_s
-      HTTParty.delete("#{ENV["YT_COMMENT_API_URL"]}/comments/#{params[:id]}")
-    else
-      render json: "ERROR", status: :unauthorized 
-    end
-  end
-
-  # POST /trips/comments
-  def add_comment
-    if comment_params[:user_id] == current_user.id
-
-      comment =
-        HTTParty
-        .post(
-          "#{ENV["YT_COMMENT_API_URL"]}/comments",
-          body: {
-            comment: comment_params.as_json
-        }).as_json["data"]
-      
-      comment["user"] = custom_serializer([User.find(current_user.id)], UserSerializer).as_json[0]
-      broadcast(comment)
-      render json: comment
-    else
-      render json: "ERROR", status: :unauthorized 
-    end
   end
 
   # POST /trips/increase_view_count
@@ -182,7 +135,7 @@ class TripsController < ApplicationController
   # find total pages in pagination
   def find_total_pages
     trips = Trip.all.count
-    totol_pages = (trips/6.0).ceil 
+    totol_pages = (trips/6.0).ceil
   end
 
   # Use callbacks to share common setup or constraints between actions.
@@ -205,13 +158,5 @@ class TripsController < ApplicationController
       # Change for picture here
       place['pictures_attributes'] = place['pictures']
     end
-  end
-
-  def comment_params
-    params.require(:comment).permit(:user_id, :trip_id, :message)
-  end
-
-  def broadcast(comment)
-    ActionCable.server.broadcast('comments', comment.as_json.merge(action: 'CreateComments'))
   end
 end

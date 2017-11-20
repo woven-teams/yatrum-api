@@ -1,24 +1,23 @@
 Rails.application.routes.draw do
   # get 'users/create'
 
-  # Made For Devise intergation 
+  # Made For Devise intergation
   # TODO: Should be changed to yatrums home index
   root to: "home#index"
-  
+
   devise_for :users
-  
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   get 'users/:user_id/trips', to: 'trips#get_user_trips'
   post 'trips/search', to: 'trips#search'
   post 'trips/like', to: 'trips#like'
   get 'trending/trips', to: 'trips#trending'
-  get 'trips/:id/comments', to: 'trips#comments'
-  post 'trips/comments', to: 'trips#delete_comment'
-  post 'trips/add_comments', to: 'trips#add_comment'
   post 'trips/increase_view_count', to: 'trips#increase_view_count'
   post 'graph_data_for_trip', to: 'trips#graph_data_for_trip'
-  resources :trips
+  resources :trips do
+    resources :comments, only: [:index, :create, :destroy]
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   post 'auth/:provider', to: 'authentication#social_authenticate'
