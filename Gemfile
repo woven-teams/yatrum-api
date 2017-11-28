@@ -42,7 +42,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :development, :test do
   gem 'byebug', platform: :mri
-  gem 'database_cleaner'
   gem 'factory_bot'
   gem 'pry'
   gem 'rspec-rails'
